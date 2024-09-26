@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Reportes</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Estilos para la sección de "Mis Reportes" */
+        .reports-container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 40px auto;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.9);
+        }
+
+        .reports-title {
+            text-align: center;
+            font-size: 24px;
+            color: #333;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .report-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .report-table th,
+        .report-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        .report-table th {
+            background-color: #FFEB3B;
+            color: black;
+            font-weight: bold;
+        }
+
+        .report-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .report-table tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .report-table td .status {
+            padding: 8px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        /* Colores para los estados */
+        .status {
+    min-width: 120px; /* Ajusta el ancho mínimo a tu preferencia */
+    text-align: center;
+    padding: 8px;
+    border-radius: 5px;
+    font-weight: bold;
+    display: inline-block; /* Asegura que los elementos sean tratados como bloques en línea */
+}
+
+.status.pending {
+    background-color: #ffc107;
+    color: white;
+}
+
+.status.in-progress {
+    background-color: #17a2b8;
+    color: white;
+}
+
+.status.completed {
+    background-color: #28a745;
+    color: white;
+}
+
+.status.rechazado {
+    background-color: #ed0e0e;
+    color: white;
+}
+
+.logo {
+    width: 120px; /* Ajusta el tamaño del logo */
+    margin: 0 auto 10px; /* Centra el logo horizontalmente y añade un margen inferior */
+    display: block; /* Asegura que el logo sea tratado como un bloque */
+}
+
+        /* Estilo para la columna de comentarios */
+        .report-table .comments {
+            text-align: left;
+            font-size: 14px;
+            padding: 10px;
+        }
+
+    /* Botón de retorno */
+.return-button {
+    background-color: #FFEB3B;
+    color: black;
+    border: none;
+    padding: 15px 30px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 8px;
+    margin-top: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin: 0 auto 10px; /* Centra el logo horizontalmente y añade un margen inferior */
+    display: block; /* Asegura que el logo sea tratado como un bloque */
+}
+
+.return-button:hover {
+    background-color: #fdd835;
+}
+    </style>
+</head>
+<body>
+
+    <div class="reports-container">
+        <img src="imagenes/logo.png" alt="logo" class="logo">
+        <h2 class="reports-title">Mis Reportes</h2>
+        <table class="report-table">
+            <thead>
+                <tr>
+                    <th>N° de Reporte</th>
+                    <th>Ubicación</th>
+                    <th>Detalle</th>
+                    <th>Estado</th>
+                    <th>Observaciones</th> <!-- Nueva columna -->
+                </tr>
+            </thead>
+            <tbody id="reportList">
+                <!-- Aquí se insertarán dinámicamente los reportes -->
+                <tr>
+                    <td>001</td>
+                    <td>Calle Principal 123</td>
+                    <td>Farola rota</td>
+                    <td><span class="status pending">Pendiente</span></td>
+                    <td class="comments">En espera de asignación de personal.</td> <!-- Comentario -->
+                </tr>
+                <tr>
+                    <td>002</td>
+                    <td>Avenida Libertad 456</td>
+                    <td>Farola intermitente</td>
+                    <td><span class="status in-progress">En proceso</span></td>
+                    <td class="comments">Técnico en camino, estimado en 2 horas.</td> <!-- Comentario -->
+                </tr>
+                <tr>
+                    <td>003</td>
+                    <td>Plaza Central</td>
+                    <td>Farola apagada</td>
+                    <td><span class="status completed">Completado</span></td>
+                    <td class="comments">Reparación completada el 20/09/2024.</td> <!-- Comentario -->
+                </tr>
+                <tr>
+                    <td>004</td>
+                    <td>Tucumán 370</td>
+                    <td>Pozo en la esquina</td>
+                    <td><span class="status rechazado">Rechazado</span></td>
+                    <td class="comments">No corresponde a este área</td> <!-- Comentario -->
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="container success-screen" id="successMessage">
+        <div class="success-content">
+            <button class="return-button" onclick="goBack()">Volver</button>
+        </div>
+    </div>
+
+</body>
+</html>

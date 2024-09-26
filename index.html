@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Reporte de Incidentes</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f0f5;
+            position: relative; /* Agregado para el posicionamiento de la splash */
+        }
+
+        .splash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10; /* Asegura que la pantalla de carga esté encima */
+            opacity: 1;
+            transition: opacity 1s ease-out;
+        }
+
+        .splash-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .splash-logo {
+            text-align: center;
+        }
+
+        .splash-logo img {
+            width: 300px; /* Ajusta el tamaño del logo en la pantalla de inicio */
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .splash-logo h1 {
+            font-size: 35px;
+            color: #000;
+            margin-top: 20px;
+        }
+
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.9);
+            width: 100%;
+            max-width: 400px; /* Limitar el ancho máximo a 400px */
+            text-align: center;
+            display: none; /* Ocultar el contenedor del formulario al principio */
+        }
+
+        .logo-container {
+            margin-bottom: 20px;
+        }
+
+        .logo {
+            width: 100px; /* Ajusta el tamaño del logo */
+        }
+
+        .form-container {
+            margin-bottom: 20px;
+        }
+
+        input[type="email"], input[type="password"], input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        p {
+            margin-top: 15px;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <!-- Pantalla inicial de carga -->
+    <div class="splash-screen" id="splashScreen">
+        <div class="splash-logo">
+            <img src="imagenes/logo.png" alt="Logo del Proyecto">
+            <h1>Alerta Luminica</h1>
+        </div>
+    </div>
+
+    <div class="container" id="loginContainer">
+        <div class="logo-container">
+            <img src="imagenes/logo.png" alt="Logo del Proyecto" class="logo">
+        </div>
+
+        <!-- Formulario de inicio de sesión -->
+        <div id="login-form" class="form-container">
+            <h2>Iniciar sesión</h2>
+            <form id="login" onsubmit="return handleLogin(event)">
+                <input type="email" id="email" placeholder="Correo electrónico" required>
+                <input type="password" id="password" placeholder="Contraseña" required>
+                <button type="submit">Iniciar sesión</button>
+                <p>¿No tienes una cuenta? <a href="#" onclick="showRegister()">Regístrate aquí</a></p>
+            </form>
+        </div>
+
+        <!-- Formulario de registro -->
+        <div id="register-form" class="form-container hidden">
+            <h2>Registro</h2>
+            <form id="register" onsubmit="return handleRegister(event)">
+                <input type="text" id="register-name" placeholder="Nombre completo" required>
+                <input type="email" id="register-email" placeholder="Correo electrónico" required>
+                <input type="password" id="register-password" placeholder="Contraseña" required>
+                <button type="submit">Registrarse</button>
+                <p>¿Ya tienes una cuenta? <a href="#" onclick="showLogin()">Inicia sesión aquí</a></p>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript para ocultar la pantalla inicial después de 1.5 segundos
+        window.addEventListener("load", function() {
+            setTimeout(function() {
+                const splashScreen = document.getElementById('splashScreen');
+                const loginContainer = document.getElementById('loginContainer');
+                
+                splashScreen.classList.add('hidden'); // Agregar clase para ocultar el splash
+                loginContainer.style.display = 'block'; // Mostrar el contenedor del formulario de login
+                document.getElementById('login-form').style.display = 'block'; // Asegurarse de que el formulario de login esté visible
+                document.getElementById('register-form').style.display = 'none'; // Ocultar el formulario de registro
+            }, 2000); // Tiempo de espera de 1.5 segundos
+        });
+
+        // Funciones de manejo para inicio de sesión y registro
+        function handleLogin(event) {
+            event.preventDefault();
+            // Lógica para iniciar sesión aquí
+            alert("Inicio de sesión");
+        }
+
+        function handleRegister(event) {
+            event.preventDefault();
+            // Lógica para registro aquí
+            alert("Registro");
+        }
+
+        function showRegister() {
+            document.getElementById('login-form').style.display = 'none'; // Ocultar formulario de login
+            document.getElementById('register-form').style.display = 'block'; // Mostrar formulario de registro
+        }
+
+        function showLogin() {
+            document.getElementById('register-form').style.display = 'none'; // Ocultar formulario de registro
+            document.getElementById('login-form').style.display = 'block'; // Mostrar formulario de login
+        }
+    </script>
+</body>
+</html>

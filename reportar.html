@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alerta Luminica</title>
+    <link rel="stylesheet" href="styles.css">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body, html {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f0f5;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100vh; /* Ocupa toda la altura de la pantalla */
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .logo {
+            width: 120px; /* Ajusta el tamaño del logo */
+            margin-bottom: 10px;
+        }
+
+        .incident-title {
+    text-align: center;
+    color: black;
+    font-weight: bold;
+    padding: 10px;
+    border-radius: 5px;
+    width: auto;
+    border: 2px solid black; /* Borde del cuadro */
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2); /* Sombra para resaltar */
+}
+
+        form {
+            width: 100%;
+        }
+
+        form label {
+            font-size: 14px;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        textarea {
+            resize: none;
+            height: 80px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .submit-button, .cancel-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 0 10px;
+            flex-grow: 1;
+            transition: background-color 0.3s ease;
+        }
+
+        .submit-button {
+            background-color: #FFEB3B;
+            color: black;
+            font-weight: bold;
+        }
+
+        .submit-button:hover {
+            background-color: #fdd835;
+        }
+
+        .cancel-button {
+            background-color: #f44336;
+            color: black;
+            font-weight: bold;
+        }
+
+        .cancel-button:hover {
+            background-color: #d32f2f;
+        }
+
+       /* Pantalla completa oculta inicialmente */
+.success-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('imagenes/background.jpg');
+    background-size: cover;
+    background-position: center;
+    display: none; /* Oculto inicialmente */
+    justify-content: center;
+    align-items: center;
+}
+
+/* Contenedor interno con fondo blanco */
+.success-content {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.9);
+    text-align: center;
+    width: 90%;
+    max-width: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+/* Botón de retorno */
+.return-button {
+    background-color: #FFEB3B;
+    color: black;
+    border: none;
+    padding: 15px 30px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 8px;
+    margin-top: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.return-button:hover {
+    background-color: #fdd835;
+}
+
+
+    </style>
+</head>
+<body>
+
+    <div class="container" id="reportForm">
+        <div class="header">
+            <img src="imagenes/logo.png" alt="Alerta Luminica Logo" class="logo">
+            <h1 class="incident-title">REPORTAR INCIDENTE</h1>
+        </div>
+
+        <form id="incidentForm">
+            <label for="tipoReporte">Tipo de reporte</label>
+            <select id="tipoReporte">
+                <option>Seleccionar tipo de reporte</option>
+                <option>Farola apagada</option>
+                <option>Farola intermitente</option>
+                <option>Farola rota</option>
+                <option>Otro</option>
+            </select>
+
+            <label for="ubicacion">Ubicación</label>
+            <input type="text" id="ubicacion" placeholder="Seleccionar Ubicación">
+
+            <label for="descripcion">Descripción</label>
+            <textarea id="descripcion" placeholder="Descripción"></textarea>
+
+            <label for="foto">Foto / Video</label>
+            <input type="file" id="foto">
+
+            <div class="buttons">
+                <button type="submit" class="submit-button">ENVIAR</button>
+                <button type="button" class="cancel-button" onclick="resetForm()">CANCELAR</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="container success-screen" id="successMessage">
+        <div class="success-content">
+            <h2>Reporte cargado con éxito</h2>
+            <img src="imagenes/logo.png" alt="Alerta Luminica Logo" class="logo">
+            <button class="return-button" onclick="goBack()">Volver</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

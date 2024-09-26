@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle del Reporte</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+
+        #detail-panel {
+            width: 90%;
+            max-width: 800px;
+            margin: 40px auto;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.9);
+        }
+
+        header {
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            margin: 0;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        form label {
+            margin-top: 10px;
+        }
+
+        form input, form textarea {
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-between; /* Cambiado a space-between para más espacio */
+            margin-top: 20px;
+        }
+
+        .buttons button {
+            padding: 10px;
+            width: 23%; /* Cambiado a 23% para dar más espacio entre botones */
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s;
+        }
+
+        .button-solved {
+            background-color: #28a745; /* Verde */
+        }
+
+        .button-in-progress {
+            background-color: #17a2b8; /* Naranja */
+        }
+
+        .button-rejected {
+            background-color: #ed0e0e; /* Rojo */
+        }
+
+        .button-close {
+            background-color: #ffc107; /* Azul */
+        }
+
+        .buttons button:hover {
+            opacity: 0.9; /* Cambio ligero al pasar el mouse */
+        }
+
+        .photo {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .photo img {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .observation {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="detail-panel">
+        <header>
+            <h1>Detalle del Reporte</h1>
+        </header>
+        
+        <form>
+            <label for="report-number">Número de Reporte:</label>
+            <input type="text" id="report-number" readonly>
+
+            <label for="location">Ubicación:</label>
+            <input type="text" id="location" readonly>
+
+            <label for="description">Descripción:</label>
+            <textarea id="description" rows="4" readonly></textarea>
+
+            <div class="photo" id="photo"></div>
+
+            <label for="observation">Observaciones:</label>
+            <textarea id="observation" rows="4" placeholder="Escriba aquí sus observaciones..."></textarea>
+        </form>
+
+        <div class="buttons">
+            <button class="button-solved" onclick="changeStatus('solved')">Solucionado</button>
+            <button class="button-in-progress" onclick="changeStatus('in-progress')">En Proceso</button>
+            <button class="button-rejected" onclick="changeStatus('rejected')">Rechazado</button>
+            <button class="button-close" onclick="closeDetail()">Cerrar</button>
+        </div>
+    </div>
+
+    <script>
+        // Obtenemos el ID del reporte desde la URL
+        const params = new URLSearchParams(window.location.search);
+        const reportId = params.get('id');
+
+        // Simulamos la obtención de datos del reporte
+        const reports = {
+            132: { number: 132, location: 'Nombre 132', description: 'luz rota', photo: 'imagen132.jpg' },
+            133: { number: 133, location: 'Nombre 133', description: 'luz apagada', photo: 'imagen133.jpg' },
+            // Más reportes...
+        };
+
+        const report = reports[reportId];
+        if (report) {
+            document.getElementById("report-number").value = report.number;
+            document.getElementById("location").value = report.location;
+            document.getElementById("description").value = report.description;
+            document.getElementById("photo").innerHTML = `<img src="${report.photo}" alt="Foto del reporte">`;
+        }
+
+        // Función para cambiar el estado del reporte
+        function changeStatus(newStatus) {
+            const statusMessages = {
+                solved: "El reporte ha sido marcado como solucionado.",
+                'in-progress': "El reporte ha sido marcado como en proceso.",
+                rejected: "El reporte ha sido marcado como rechazado."
+            };
+            alert(statusMessages[newStatus]);
+            // Aquí se puede agregar lógica para actualizar el estado en la base de datos
+        }
+
+        function closeDetail() {
+            // Redirige a la pantalla de los reportes cargados
+            window.location.href = 'administrador.html'; // Cambia 'reportes.html' por la URL correcta
+        }
+    </script>
+</body>
+</html>
